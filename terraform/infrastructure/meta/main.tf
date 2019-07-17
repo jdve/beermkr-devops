@@ -1,13 +1,16 @@
 terraform {
   backend "s3" {
     bucket = "brewjacket-terraform-state"
-    key = "infrastructure/terraform.tfstate"
+    key = "infrastructure/meta/terraform.tfstate"
     region = "us-west-2"
     dynamodb_table = "terraform-state-locks"
   }
 }
 
-provider "aws" { region = "us-west-2" }
+provider "aws" {
+  version = "~> 2.19"
+  region = "us-west-2"
+}
 
 resource "aws_dynamodb_table" "dynamodb-terraform-lock" {
   name = "terraform-state-locks"

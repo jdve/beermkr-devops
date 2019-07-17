@@ -1,0 +1,25 @@
+[
+  {
+    "name": "${name}",
+    "image": "${image}",
+    "cpu": ${cpu},
+    "memory": ${memory},
+    "portMappings": [ {
+      "containerPort": ${port},
+      "hostPort": ${port}, "protocol": "tcp"
+    } ],
+    "essential": true,
+    "environment": ${environment},
+    "disableNetworking": false,
+    "privileged": false,
+    "readonlyRootFilesystem": false,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "${log_prefix}"
+      }
+    }
+  }
+]
