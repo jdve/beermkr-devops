@@ -21,10 +21,11 @@ data "template_file" "container" {
     cpu = local.cpu
     memory = local.memory
     environment = jsonencode(local.environment_vars)
+    secrets = jsonencode(local.secret_vars)
 
     port = local.port
     log_group = aws_cloudwatch_log_group.log_group.name
-    log_region = "us-east-1"
+    log_region = "us-west-2"
     log_prefix = local.app
     image = "${aws_ecr_repository.repository.repository_url}:${local.image_tag}"
   }
@@ -35,7 +36,7 @@ resource "aws_ecs_service" "service" {
   cluster = data.aws_ecs_cluster.cluster.cluster_name
 
   task_definition = aws_ecs_task_definition.definition.arn
-  desired_count = "1"
+  desired_count = "2"
 
   platform_version = "LATEST"
   launch_type = "FARGATE"

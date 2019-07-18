@@ -13,3 +13,16 @@ data "aws_subnet" "public_2" {
 data "aws_ecs_cluster" "cluster" {
   cluster_name = "${local.environment}-${local.generation}"
 }
+
+data "aws_iam_policy" "parameter_read_policy" {
+  arn = "arn:aws:iam::279309378976:policy/production-environment-read-env20190718161158830900000004"
+}
+
+data "aws_route53_zone" "beermkr_app" {
+  name = "beermkr.app"
+}
+
+data "aws_acm_certificate" "beermkr_app" {
+  domain   = "beermkr.app"
+  statuses = ["ISSUED"]
+}

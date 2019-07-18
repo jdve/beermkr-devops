@@ -10,6 +10,7 @@
     } ],
     "essential": true,
     "environment": ${environment},
+    "secrets": ${secrets},
     "disableNetworking": false,
     "privileged": false,
     "readonlyRootFilesystem": false,

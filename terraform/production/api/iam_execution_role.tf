@@ -71,3 +71,8 @@ resource "aws_iam_role_policy_attachment" "execution_role_attach_1" {
     role       = aws_iam_role.execution_role.name
     policy_arn = aws_iam_policy.execution_policy.arn
 }
+
+resource "aws_iam_role_policy_attachment" "execution_role_parameter_decryption" {
+    role       = aws_iam_role.execution_role.name
+    policy_arn = data.aws_iam_policy.parameter_read_policy.arn
+}

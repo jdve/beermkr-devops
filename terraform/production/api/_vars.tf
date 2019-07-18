@@ -1,19 +1,27 @@
 locals {
+  dns_name = "api.beermkr.app"
+
   environment = "production"
   generation = "alpaca"
   app = "api"
 
   health_check = {
-    path = "/"
+    path = "/ping"
     matcher = 200
-    interval = 10
+    interval = 5
     healthy_threshold = 2
-    unhealthy_threshold = 10
+    unhealthy_threshold = 5
+    timeout = 2
   }
 
   environment_vars = [{
     name = "RAILS_ENV",
     value = "production"
+  }]
+
+  secret_vars = [{
+    "name": "DATABASE_URL",
+    "valueFrom": "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/database_url"
   }]
 
   public_subnets = [

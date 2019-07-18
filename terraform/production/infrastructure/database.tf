@@ -16,7 +16,7 @@ resource "aws_db_instance" "database" {
   apply_immediately = true
 
   # root database account credentials
-  name                 = local.environment
+  name                 = local.database_name
   username             = local.database_username
   password             = local.database_default_password
 
