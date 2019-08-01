@@ -3,11 +3,11 @@ resource "aws_acm_certificate" "ssl" {
   validation_method = "DNS"
 
   tags = {
-    Name = "${var.environment} ${var.generation}"
+    Name = "${local.environment} ${local.generation}"
   }
 
   subject_alternative_names = [
-    "*.${var.dns_name}"
+    "*.${local.dns_name}"
   ]
 
   lifecycle {

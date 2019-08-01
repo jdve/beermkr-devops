@@ -1,5 +1,5 @@
 locals {
-  dns_name = "api.beermkr.app"
+  dns_name = "beermkr.app"
 
   environment = "production"
   generation = "alpaca"
@@ -14,15 +14,23 @@ locals {
     timeout = 2
   }
 
-  environment_vars = [{
-    name = "RAILS_ENV",
-    value = "production"
-  }]
+  environment_vars = [
+    {
+      name = "RAILS_ENV",
+      value = "production"
+    }
+  ]
 
-  secret_vars = [{
-    "name": "DATABASE_URL",
-    "valueFrom": "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/database_url"
-  }]
+  secret_vars = [
+    {
+      "name": "DATABASE_URL",
+      "valueFrom": "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/database_url"
+    },
+    {
+      name = "SECRET_KEY_BASE",
+      valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/secret_key_base"
+    }
+  ]
 
   public_subnets = [
     data.aws_subnet.public_1.id,
