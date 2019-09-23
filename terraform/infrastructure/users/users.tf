@@ -1,3 +1,11 @@
+resource "aws_iam_user" "aaron_walls" {
+  name = "aaron.walls"
+
+  tags = {
+    email = "aaron@brewjacket.com"
+  }
+}
+
 resource "aws_iam_user" "robert_carpenter" {
   name = "robert.carpenter"
   tags = {
