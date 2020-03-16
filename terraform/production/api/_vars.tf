@@ -29,6 +29,10 @@ locals {
     {
       name = "SECRET_KEY_BASE",
       valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/secret_key_base"
+    },
+    {
+      name = "SENDGRID_API_KEY",
+      valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/SENDGRID_API_KEY"
     }
   ]
 
