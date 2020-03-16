@@ -14,6 +14,15 @@ resource "aws_iam_user" "robert_carpenter" {
   }
 }
 
+resource "aws_iam_user" "david_young" {
+  name = "david.young"
+
+  tags = {
+    email = "dave@youngcircuitdesigns.com"
+    role = ""
+  }
+}
+
 resource "aws_iam_user" "david_mollerstuen" {
   name = "david.mollerstuen"
 
