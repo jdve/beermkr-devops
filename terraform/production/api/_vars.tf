@@ -39,6 +39,10 @@ locals {
       valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/STRIPE_SECRET_KEY"
     },
     {
+      name = "STRIPE_WEBHOOK_SECRET",
+      valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/STRIPE_WEBHOOK_SECRET"
+    },
+    {
       name = "FIREBASE_SERVER_KEY",
       valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/FIREBASE_SERVER_KEY"
     }
