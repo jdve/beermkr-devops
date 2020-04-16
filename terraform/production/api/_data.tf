@@ -10,6 +10,14 @@ data "aws_subnet" "public_2" {
   id = "subnet-09043e3b796147764"
 }
 
+data "aws_subnet_ids" "public" {
+  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name = "tag:Name"
+    values = ["*public*"]
+  }
+}
+
 data "aws_ecs_cluster" "cluster" {
   cluster_name = "${local.environment}-${local.generation}"
 }
@@ -25,4 +33,13 @@ data "aws_route53_zone" "beermkr_app" {
 data "aws_acm_certificate" "beermkr_app" {
   domain   = "beermkr.app"
   statuses = ["ISSUED"]
+}
+
+data "aws_ami" "bastion" {
+  most_recent = true
+  owners = ["self"]
+  filter {
+    name = "name"
+    values = ["bastion-instance-*"]
+  }
 }
