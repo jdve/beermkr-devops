@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Wait a bit, hopefully for aws networking to finish coming up
+sleep 12
+
+sudo apt-get update
+
+sudo apt-get -y install apt-transport-https
+
+# disable motd
+sudo sed -i '/pam_motd\.so/s/^/#/' /etc/pam.d/login
+sudo sed -i '/pam_motd\.so/s/^/#/' /etc/pam.d/sshd
+
+# disable "Last login" message
+sudo sed -i '/PrintLastLog/s/^/#/' /etc/ssh/sshd_config
+echo "PrintLastLog no" | sudo tee -a /etc/ssh/sshd_config
+sudo service ssh restart
+
+# disable the "Did you mean" feature
+sudo apt-get remove -y command-not-found command-not-found-data
+
+# provide NTP via amazon services
+sudo apt-get install -y chrony
+sudo cp base/chrony.conf /etc/chrony/chrony.conf
+sudo service chrony restart

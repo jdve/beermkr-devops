@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -euo pipefail
+
+print_help () {
+  error_message=${1:-}
+  if [[ "$error_message" ]]; then
+    echo "Error: $error_message"
+    echo
+  fi
+
+  cat <<HELP
+$0: Copies component scripts to a running VM and executes them as packer would.
+
+Usage: $0 <ssh connection string> command
+
+Example: $0 ubuntu@1.2.3.45
+
+Options:
+
+  command		The command to run on the server after copying the components.
+
+HELP
+  exit 1
+}
+
+ssh_connection=${1:-invalid}
+run_command=${2:-}
+
+case "$ssh_connection" in
+  invalid)
+    print_help
+    ;;
+  *)
+esac
+
+work_dir='/opt/components'
+
+ssh "$ssh_connection" "sudo mkdir $work_dir; sudo chown ubuntu:ubuntu $work_dir"
+scp -r components/* "$ssh_connection":"$work_dir"
+
+if [ "$run_command" ]; then
+  echo "running '$run_command'"
+  ssh "$ssh_connection" "cd $work_dir; $run_command"
+fi

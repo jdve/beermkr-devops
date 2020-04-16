@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+sudo groupadd -f wheel
+sudo groupadd -f users
+
+# allow users in sudoers to sudo without password
+echo '%wheel ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers
+
+# create worker user
+sudo useradd --system --gid users --shell /usr/sbin/nologin worker
+

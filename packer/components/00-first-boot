@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+sudo cp first-boot/run /opt/first-boot
+sudo mkdir -p /opt/first-boot.d

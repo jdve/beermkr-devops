@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -euo pipefail
+
+print_help () {
+  error_message=${1:-}
+  if [[ "$error_message" ]]; then
+    echo "Error: $error_message"
+    echo
+  fi
+
+  cat <<HELP
+$0: Builds an AMI for a given environment with Packer.
+
+Usage: $0 <environment> [packer arguments]
+
+Environment is one of: bastion
+
+HELP
+  exit 1
+}
+
+packer_environment=${1:-invalid}
+shift
+
+case "$packer_environment" in
+  bastion)
+    ;;
+  *)
+  print_help ""
+esac
+
+packer build -var environment="$packer_environment" $@ packer.json

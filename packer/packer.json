@@ -1,0 +1,45 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "instance_type": "t3.micro",
+      "region": "us-west-2",
+
+      "ami_name": "{{ user `environment` }}-instance-{{timestamp}}",
+
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/*ubuntu-*-18.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+
+      "associate_public_ip_address": true,
+
+      "ssh_username": "ubuntu",
+
+      "tags": { "Name": "{{ user `environment` }}-instance" }
+    }
+  ],
+
+  "provisioners": [
+    { "type": "shell", "inline": [
+        "sudo mkdir -p /opt/components/",
+        "sudo chown ubuntu:ubuntu /opt/components"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./components/",
+      "destination": "/opt/components/"
+    },
+    {
+      "type": "shell",
+      "inline": [ "cd /opt/components; bash {{ user `environment` }}.sh" ]
+    }
+  ]
+}

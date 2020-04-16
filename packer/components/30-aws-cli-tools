@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+sudo mkdir -p /opt/src
+sudo mkdir -p /opt/awscli
+
+sudo apt-get update
+sudo apt-get install -y jq unzip python-simplejson libyaml-dev
+
+pushd /opt/src
+curl -s 'https://s3.amazonaws.com/aws-cli/awscli-bundle.zip' | sudo dd of=awscli-bundle.zip
+sudo unzip -u awscli-bundle.zip -d /opt
+popd
+
+sudo /opt/awscli-bundle/install -i /opt/aws -b /usr/local/bin/aws
