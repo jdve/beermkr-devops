@@ -18,6 +18,10 @@ locals {
     {
       name = "RAILS_ENV",
       value = "production"
+    },
+    {
+      name = "MACHINES_LOG_GROUP",
+      value = "${local.environment}/${local.app}/machines"
     }
   ]
 

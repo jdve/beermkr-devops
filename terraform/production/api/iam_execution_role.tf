@@ -62,6 +62,20 @@ resource "aws_iam_policy" "execution_policy" {
           "${aws_cloudwatch_log_group.log_group.arn}"
         ]
     }
+
+    ,
+
+    {
+        "Sid": "statement3",
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": [
+          "${aws_cloudwatch_log_group.log_group_machines.arn}"
+        ]
+    }
   ]
 }
 EOF
