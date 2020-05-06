@@ -23,8 +23,8 @@ locals {
 
   secret_vars = [
     {
-      "name": "DATABASE_URL",
-      "valueFrom": "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/database_url"
+      name = "DATABASE_URL",
+      valueFrom = "arn:aws:ssm:us-west-2:279309378976:parameter/beermkr/env/database_url"
     },
     {
       name = "SECRET_KEY_BASE",
