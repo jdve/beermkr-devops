@@ -4,6 +4,7 @@ resource "aws_ecs_task_definition" "definition" {
 
   container_definitions = data.template_file.container.rendered
   execution_role_arn = aws_iam_role.execution_role.arn
+  task_role_arn = aws_iam_role.task_role.arn
 
   requires_compatibilities = ["FARGATE"]
   network_mode = "awsvpc"
