@@ -37,6 +37,18 @@ resource "aws_iam_policy" "task_policy" {
           "${aws_cloudwatch_log_group.log_group_machines.arn}"
         ]
     }
+    ,
+    {
+        "Sid": "statement1",
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": [
+          "${aws_cloudwatch_log_group.log_group_brew_history.arn}"
+        ]
+    }
   ]
 }
 EOF
